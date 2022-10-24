@@ -26,7 +26,6 @@ class options_data():
         return df 
 
 
-
 if __name__ == '__main__':
     print(options_data.full_ticker("TSLA"))
     print(options_data.get_ticker_date("SPY", "2022-12-16"))
