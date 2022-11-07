@@ -1,17 +1,18 @@
 from scipy.stats import norm
 import numpy as np
-from bs_call_putt import BS_CALL, BS_PUT
+from tools.bs_call_putt import BS_CALL, BS_PUT
+
 
 class greeks(): 
     def d1(S, K, T, r, sigma):
         return (np.log(S/K) + (r + sigma**2/2)*T) / sigma*np.sqrt(T)
 
     def d2(S, K, T, r, sigma):
-        return d1(S, K, T, r, sigma) - sigma* np.sqrt(T)
+        return self.d1(S, K, T, r, sigma) - sigma* np.sqrt(T)
 
     def delta_call(S, K, T, r, sigma):
         N = norm.cdf
-        return N(d1(S, K, T, r, sigma))
+        return N(self.d1(S, K, T, r, sigma))
     
     def delta_fdm_call(S, K, T, r, sigma, ds = 1e-5, method='central'):
         method = method.lower() 
@@ -25,7 +26,7 @@ class greeks():
     
     
     def delta_put(S, K, T, r, sigma):
-        return - N(-d1(S, K, T, r, sigma))
+        return - N(-self.d1(S, K, T, r, sigma))
 
     def delta_fdm_put(S, K, T, r, sigma, ds = 1e-5, method='central'):
         method = method.lower() 
